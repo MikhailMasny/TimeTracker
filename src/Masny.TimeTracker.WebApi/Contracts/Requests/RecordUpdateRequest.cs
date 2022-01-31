@@ -1,8 +1,10 @@
-﻿using Masny.TimeTracker.Data.Enums;
-using System;
+﻿using System;
 
 namespace Masny.TimeTracker.WebApi.Contracts.Requests
 {
+    /// <summary>
+    /// Record update operation request.
+    /// </summary>
     public class RecordUpdateRequest
     {
         /// <summary>

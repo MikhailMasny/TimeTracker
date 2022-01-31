@@ -1,5 +1,4 @@
 ﻿using Masny.TimeTracker.Data.Models;
-using Masny.TimeTracker.Logic.Interfaces;
 using Masny.TimeTracker.WebApi.Models;
 using Masny.TimeTracker.WebApi.Settings;
 using Microsoft.AspNetCore.Http;
@@ -8,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
@@ -16,20 +14,34 @@ using System.Threading.Tasks;
 
 namespace Masny.TimeTracker.WebApi.Middlewares
 {
+    /// <summary>
+    /// Jwt middleware.
+    /// </summary>
     public class JwtMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly AppSettings _appSettings;
         private readonly IServiceScopeFactory _serviceScopeFactory;
 
+        /// <summary>
+        /// Constructor with params.
+        /// </summary>
+        /// <param name="next">Next request delegate.</param>
+        /// <param name="appSettings">App settings.</param>
+        /// <param name="serviceScopeFactory">Service scope factory.</param>
         public JwtMiddleware(
             RequestDelegate next,
             IOptions<AppSettings> appSettings,
             IServiceScopeFactory serviceScopeFactory)
         {
             _next = next;
+            _serviceScopeFactory = serviceScopeFactory ?? throw new ArgumentNullException(nameof(serviceScopeFactory));
+
+            if (appSettings is null)
+            {
+                throw new ArgumentNullException(nameof(serviceScopeFactory));
+            }
             _appSettings = appSettings.Value;
-            _serviceScopeFactory = serviceScopeFactory;
         }
 
         public async Task Invoke(HttpContext context)

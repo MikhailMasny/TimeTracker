@@ -3,7 +3,9 @@ using Masny.TimeTracker.Logic.Models;
 using Masny.TimeTracker.WebApi.Attributes;
 using Masny.TimeTracker.WebApi.Contracts.Requests;
 using Masny.TimeTracker.WebApi.Models;
+using Masny.TimeTracker.WebApp.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace Masny.TimeTracker.WebApi.Controllers
@@ -17,7 +19,7 @@ namespace Masny.TimeTracker.WebApi.Controllers
 
         public ProjectController(IProjectManager projectManger)
         {
-            _projectManager = projectManger;
+            _projectManager = projectManger ?? throw new ArgumentNullException(nameof(projectManger));
         }
 
         [HttpGet]
@@ -57,13 +59,11 @@ namespace Masny.TimeTracker.WebApi.Controllers
                 Type = request.Type
             };
 
-            // UNDONE: Create custom exception handler
             await _projectManager.UpdateAsync(project);
 
             return NoContent();
         }
 
-        // DELETE api/<ProjectController>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {

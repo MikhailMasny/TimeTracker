@@ -1,5 +1,6 @@
 ﻿using Masny.TimeTracker.Data.Enums;
 using Masny.TimeTracker.Data.Models;
+using Masny.TimeTracker.Logic.Exceptions;
 using Masny.TimeTracker.Logic.Interfaces;
 using Masny.TimeTracker.Logic.Models;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +25,7 @@ namespace Masny.TimeTracker.Logic.Managers
         {
             if (string.IsNullOrEmpty(model.Name))
             {
-                throw new ArgumentException($"'{nameof(model.Name)}' cannot be null or empty.", nameof(model.Name));
+                throw new AppException($"'{nameof(model.Name)}' cannot be null or empty.", nameof(model.Name));
             }
 
             var project = new Project
@@ -46,7 +47,7 @@ namespace Masny.TimeTracker.Logic.Managers
 
             if (project is null)
             {
-                throw new ArgumentException($"'{nameof(id)}' project not found.", nameof(id));
+                throw new NotFoundException($"'{nameof(id)}' project not found.", nameof(id));
             }
 
             _projectRepository.Delete(project);
@@ -89,7 +90,7 @@ namespace Masny.TimeTracker.Logic.Managers
 
             if (project is null)
             {
-                throw new ArgumentException($"'{nameof(model.Id)}' project not found.", nameof(model.Id));
+                throw new NotFoundException($"'{nameof(model.Id)}' project not found.", nameof(model.Id));
             }
 
             const string defaultSwaggerStringTypeValue = "string";

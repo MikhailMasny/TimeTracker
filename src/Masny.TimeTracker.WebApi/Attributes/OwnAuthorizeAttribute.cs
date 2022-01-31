@@ -1,15 +1,14 @@
-﻿using Masny.TimeTracker.Logic.Models;
-using Masny.TimeTracker.WebApi.Models;
+﻿using Masny.TimeTracker.WebApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Masny.TimeTracker.WebApi.Attributes
 {
+    /// <summary>
+    /// Own authorize attribute.
+    /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class OwnAuthorizeAttribute : Attribute, IAuthorizationFilter
     {

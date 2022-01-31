@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Masny.TimeTracker.Logic.Interfaces
+﻿namespace Masny.TimeTracker.Logic.Interfaces
 {
+    /// <summary>
+    /// JWT service.
+    /// </summary>
     public interface IJwtService
     {
+        /// <summary>
+        /// Generate Jwt Token.
+        /// </summary>
+        /// <param name="userId">User identifier.</param>
+        /// <param name="secret">Secret key.</param>
         string GenerateJwtToken(string userId, string secret);
     }
 }

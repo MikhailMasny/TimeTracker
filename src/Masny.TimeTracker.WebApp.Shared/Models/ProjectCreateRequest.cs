@@ -1,10 +1,16 @@
-﻿namespace Masny.TimeTracker.WebApi.Contracts.Requests
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Masny.TimeTracker.WebApp.Shared.Models
 {
+    /// <summary>
+    /// Project create operation request.
+    /// </summary>
     public class ProjectCreateRequest
     {
         /// <summary>
         /// Name.
         /// </summary>
+        [Required]
         public string Name { get; set; }
 
         /// <summary>

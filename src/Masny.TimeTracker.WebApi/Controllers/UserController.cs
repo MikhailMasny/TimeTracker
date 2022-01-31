@@ -1,10 +1,9 @@
 ﻿using Masny.TimeTracker.Data.Models;
 using Masny.TimeTracker.Logic.Interfaces;
-using Masny.TimeTracker.WebApi.Attributes;
 using Masny.TimeTracker.WebApi.Contracts.Requests;
 using Masny.TimeTracker.WebApi.Contracts.Responses;
 using Masny.TimeTracker.WebApi.Settings;
-using Microsoft.AspNetCore.Http;
+using Masny.TimeTracker.WebApp.Shared.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -30,61 +29,82 @@ namespace Masny.TimeTracker.WebApi.Controllers
             IJwtService jwtService,
             IOptions<AppSettings> appSettings)
         {
-            _signInManager = signInManager;
-            _userManager = userManager;
-            _jwtService = jwtService;
+            _signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
+            _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
+            _jwtService = jwtService ?? throw new ArgumentNullException(nameof(jwtService));
+
+            if (appSettings is null)
+            {
+                throw new ArgumentNullException(nameof(appSettings));
+            }
             _appSettings = appSettings.Value;
         }
 
-        [HttpPost("authenticate")]
-        public async Task<IActionResult> AuthenticateAsync(AuthenticateRequest model)
+        [HttpPost("login")]
+        public async Task<IActionResult> LoginAsync(UserLoginRequest model)
         {
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
 
             if (!result.Succeeded)
             {
-                return Forbid();
+                return BadRequest(new { message = "Email or password is incorrect" });
             }
 
             var user = await _userManager.FindByEmailAsync(model.Email);
-
-            // UNDONE: check result user
-
             var token = _jwtService.GenerateJwtToken(user.Id, _appSettings.Secret);
-
-            if (token == string.Empty)
-            {
-                // UNDONE: change to 401 or 403
-                return BadRequest(new { message = "Username or password is incorrect" });
-            }
 
             var response = new AuthenticateResponse(user, token);
 
             return Ok(response);
         }
 
-        //[HttpPost("token")]
-        //public async Task<IActionResult> GetTokenAsync()
-        //{
-        //    var result = await _signInManager.Authenticate("test@test.test", "qwerty123", _appSettings.Secret);
+        [HttpPost("registration")]
+        public async Task<IActionResult> RegistrationAsync(UserRegistationRequest request)
+        {
+            var user = new User
+            {
+                Email = request.Email,
+                UserName = request.Email,
+                FullName = request.FullName,
+                IsActive = true,
+            };
 
-        //    if (result.Token == string.Empty)
-        //    {
-        //        // UNDONE: change to 401 or 403
-        //        return BadRequest(new { message = "Username or password is incorrect" });
-        //    }
+            var result = await _userManager.CreateAsync(user, request.Password);
 
-        //    var response = new AuthenticateResponse(result.User, result.Token);
+            if (!result.Succeeded)
+            {
+                //foreach (var error in result.Errors)
+                //{
+                //    ModelState.AddModelError("errors", error.Description);
+                //}
 
-        //    return Ok(response);
-        //}
+                //return BadRequest(ModelState);
 
-        //// UNDONE: delete it
-        //[OwnAuthorize]
-        //[HttpGet]
-        //public IActionResult Test()
-        //{
-        //    return Ok();
-        //}
+                return BadRequest(new ErrorResponse<string>
+                {
+                    Message = "Can't registration new user.",
+                    Errors = result.Errors.Select(error => error.Description)
+                });
+            }
+
+            var token = _jwtService.GenerateJwtToken(user.Id, _appSettings.Secret);
+
+            var response = new AuthenticateResponse(user, token);
+
+            return Ok(response);
+        }
+
+        // UNDONE: DELETE IT
+        [HttpPost("test")]
+        public async Task<IActionResult> TestAsync()
+        {
+            var email = "test@test.test";
+            var user = await _userManager.FindByEmailAsync(email);
+            var token = _jwtService.GenerateJwtToken(user.Id, _appSettings.Secret);
+
+            var response = new AuthenticateResponse(user, token);
+
+            return Ok(response);
+        }
     }
 }

@@ -9,6 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Masny.TimeTracker.Logic", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Masny.TimeTracker.WebApi", "src\Masny.TimeTracker.WebApi\Masny.TimeTracker.WebApi.csproj", "{AA02F28C-0A77-4972-A1FE-6F853853DD46}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Masny.TimeTracker.Web", "src\Masny.TimeTracker.Web\Masny.TimeTracker.Web.csproj", "{15A3A338-0BA9-4F48-95ED-803A24968E0B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Masny.TimeTracker.BlazorWebApp.Client", "src\Masny.TimeTracker.BlazorWebApp\Masny.TimeTracker.BlazorWebApp.Client.csproj", "{1E0C230D-05B6-4DE8-9DE6-F0685521CBB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Masny.TimeTracker.WebApp.Shared", "src\Masny.TimeTracker.WebApp.Shared\Masny.TimeTracker.WebApp.Shared.csproj", "{E8FB067E-AB1D-4864-A6BA-CEC4FF1AED9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +33,18 @@ Global
 		{AA02F28C-0A77-4972-A1FE-6F853853DD46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA02F28C-0A77-4972-A1FE-6F853853DD46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA02F28C-0A77-4972-A1FE-6F853853DD46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15A3A338-0BA9-4F48-95ED-803A24968E0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15A3A338-0BA9-4F48-95ED-803A24968E0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15A3A338-0BA9-4F48-95ED-803A24968E0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15A3A338-0BA9-4F48-95ED-803A24968E0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E0C230D-05B6-4DE8-9DE6-F0685521CBB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E0C230D-05B6-4DE8-9DE6-F0685521CBB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E0C230D-05B6-4DE8-9DE6-F0685521CBB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E0C230D-05B6-4DE8-9DE6-F0685521CBB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8FB067E-AB1D-4864-A6BA-CEC4FF1AED9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8FB067E-AB1D-4864-A6BA-CEC4FF1AED9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8FB067E-AB1D-4864-A6BA-CEC4FF1AED9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8FB067E-AB1D-4864-A6BA-CEC4FF1AED9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

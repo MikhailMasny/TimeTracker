@@ -12,8 +12,6 @@ namespace Masny.TimeTracker.Logic.Interfaces
     /// <typeparam name="T"></typeparam>
     public interface IRepositoryManager<T> where T : class
     {
-
-
         /// <summary>
         /// Create new entity async.
         /// </summary>

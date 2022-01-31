@@ -1,4 +1,5 @@
 using Masny.TimeTracker.Data.Contexts;
+using Masny.TimeTracker.Data.Models;
 using Masny.TimeTracker.Logic.Interfaces;
 using Masny.TimeTracker.Logic.Managers;
 using Masny.TimeTracker.Logic.Services;
@@ -6,18 +7,12 @@ using Masny.TimeTracker.WebApi.Middlewares;
 using Masny.TimeTracker.WebApi.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Masny.TimeTracker.WebApi
 {
@@ -30,13 +25,11 @@ namespace Masny.TimeTracker.WebApi
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
 
-            // Managers
+            // Custom managers & services
             services.AddScoped(typeof(IRepositoryManager<>), typeof(RepositoryManager<>));
-            services.AddScoped<IUserManager, UserManager>();
             services.AddScoped<IProjectManager, ProjectManager>();
             services.AddScoped<IRecordManager, RecordManager>();
             services.AddScoped<IJwtService, JwtService>();
@@ -48,13 +41,13 @@ namespace Masny.TimeTracker.WebApi
             // Configure
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
+            // Default microsoft & other services
             services.AddHttpContextAccessor();
             services.AddCors();
             services.AddControllers();
-            //services.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Masny.TimeTracker.WebApi", Version = "v1" });
-            //});
+
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationContext>();
 
             services.AddSwaggerGen(config =>
             {
@@ -62,12 +55,8 @@ namespace Masny.TimeTracker.WebApi
                 {
                     Version = "v1",
                     Title = "API",
-                    Description = "Social Media Dashboard API",
-                    Contact = new OpenApiContact()
-                    {
-                        //Name = "Mikhail M. & Alexandr G.",
-                        //Url = new Uri("https://social-media-dashboard-api.herokuapp.com/") // UNDONE: add it after deploy
-                    }
+                    Description = "TimeTracker API",
+                    Contact = new OpenApiContact() { }
                 });
 
                 var securitySchema = new OpenApiSecurityScheme
@@ -95,7 +84,6 @@ namespace Masny.TimeTracker.WebApi
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -105,8 +93,11 @@ namespace Masny.TimeTracker.WebApi
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Masny.TimeTracker.WebApi v1"));
             }
 
-            app.UseHttpsRedirection();
+            app.UseMiddleware<ErrorHandlerMiddleware>();
 
+            app.UseHsts();
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
             app.UseRouting();
 
             // global cors policy

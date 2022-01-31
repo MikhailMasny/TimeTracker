@@ -1,5 +1,6 @@
 ﻿using Masny.TimeTracker.Data.Enums;
 using Masny.TimeTracker.Data.Models;
+using Masny.TimeTracker.Logic.Exceptions;
 using Masny.TimeTracker.Logic.Interfaces;
 using Masny.TimeTracker.Logic.Models;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Masny.TimeTracker.Logic.Managers
 {
+    /// <inheritdoc cref="IRecordManager"/>
     public class RecordManager : IRecordManager
     {
         private readonly IRepositoryManager<Record> _recordRepository;
@@ -27,12 +29,12 @@ namespace Masny.TimeTracker.Logic.Managers
         {
             if (model.Start >= model.End)
             {
-                throw new ArgumentException($"'{nameof(model.Start)}' >= '{nameof(model.End)}'.");
+                throw new AppException($"'{nameof(model.Start)}' >= '{nameof(model.End)}'.");
             }
 
             if (model.ProjectId == 0)
             {
-                throw new ArgumentException($"'{nameof(model.ProjectId)}' cannot be zero identifier.", nameof(model.ProjectId));
+                throw new AppException($"'{nameof(model.ProjectId)}' cannot be zero identifier.", nameof(model.ProjectId));
             }
 
             var isUserProjectExist = await _projectRepository
@@ -41,7 +43,7 @@ namespace Masny.TimeTracker.Logic.Managers
 
             if (!isUserProjectExist)
             {
-                throw new ArgumentException($"'{nameof(model.ProjectId)}' forbidden.", nameof(model.ProjectId));
+                throw new AppException($"'{nameof(model.ProjectId)}' forbidden.", nameof(model.ProjectId));
             }
 
             var record = new Record
@@ -65,7 +67,7 @@ namespace Masny.TimeTracker.Logic.Managers
 
             if (record is null)
             {
-                throw new ArgumentException($"'{nameof(id)}' record not found.", nameof(id));
+                throw new NotFoundException($"'{nameof(id)}' record not found.", nameof(id));
             }
 
             _recordRepository.Delete(record);
@@ -112,12 +114,12 @@ namespace Masny.TimeTracker.Logic.Managers
 
             if (record is null)
             {
-                throw new ArgumentException($"'{nameof(model.Id)}' record not found.", nameof(model.Id));
+                throw new NotFoundException($"'{nameof(model.Id)}' record not found.", nameof(model.Id));
             }
 
             if (model.Start >= model.End)
             {
-                throw new ArgumentException($"'{nameof(model.Start)}' >= '{nameof(model.End)}'.");
+                throw new AppException($"'{nameof(model.Start)}' >= '{nameof(model.End)}'.");
             }
 
             if (record.Start != model.Start)

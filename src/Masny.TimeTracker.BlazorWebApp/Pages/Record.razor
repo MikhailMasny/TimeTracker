@@ -1,0 +1,80 @@
+﻿@page "/record"
+@attribute [Authorize]
+@inject IRecordService RecordService
+
+@using System.ComponentModel.DataAnnotations
+
+<div class="col-md-6 offset-md-3 mt-5">
+    <div class="card">
+        <h4 class="card-header">Record create</h4>
+        <div class="card-body">
+            <EditForm Model="@model" OnValidSubmit="HandleValidSubmit">
+                <DataAnnotationsValidator />
+                <div class="form-group">
+                    <label>Project name</label>
+                    <InputNumber @bind-Value="model.ProjectId" class="form-control" />
+                    <ValidationMessage For="@(() => model.ProjectId)" />
+                </div>
+
+                <button class="btn btn-primary" disabled="@EndIsCompleted">
+                    @if (loading)
+                    {
+                        <span class="spinner-border spinner-border-sm mr-1"></span>
+                    }
+                    Send
+                </button>
+                @if (!string.IsNullOrEmpty(error))
+                {
+                    <div class="alert alert-danger mt-3 mb-0">@error</div>
+                }
+            </EditForm>
+
+            <button class="btn btn-primary" @onclick="Start">Start</button>
+            <button class="btn btn-primary" @onclick="End" disabled="@StartIsCompleted">End</button>
+        </div>
+    </div>
+</div>
+
+@code {
+    private RecordCreateRequest model = new RecordCreateRequest();
+
+    private bool loading;
+    private string error;
+
+    private bool StartIsCompleted = true;
+    private bool EndIsCompleted = true;
+
+    private void Start()
+    {
+        model.Start = DateTime.Now;
+        StartIsCompleted = false;
+        StateHasChanged();
+    }
+
+    private void End()
+    {
+        model.End = DateTime.Now;
+        EndIsCompleted = false;
+        StateHasChanged();
+    }
+
+    private async void HandleValidSubmit()
+    {
+        loading = true;
+        try
+        {
+            await RecordService.Create(model.ProjectId, model.Start, model.End);
+        }
+        catch (Exception ex)
+        {
+            error = ex.Message;
+        }
+        finally
+        {
+            loading = false;
+            StartIsCompleted = true;
+            EndIsCompleted = true;
+            StateHasChanged();
+        }
+    }
+}

@@ -1,19 +1,18 @@
 ﻿using Masny.TimeTracker.Data.Models;
-using Masny.TimeTracker.Logic.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Masny.TimeTracker.WebApp.Shared.Models;
 
 namespace Masny.TimeTracker.WebApi.Contracts.Responses
 {
-    public class AuthenticateResponse
+    /// <summary>
+    /// User authenticate response.
+    /// </summary>
+    public class AuthenticateResponse : UserAuthModel
     {
-        public string Id { get; set; }
-        public string FullName { get; set; }
-        public string Email { get; set; }
-        public string Token { get; set; }
-
+        /// <summary>
+        /// Constructor with params.
+        /// </summary>
+        /// <param name="user">User database model.</param>
+        /// <param name="token">Jwt token.</param>
         public AuthenticateResponse(User user, string token)
         {
             Id = user.Id;

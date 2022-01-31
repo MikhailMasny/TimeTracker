@@ -2,6 +2,9 @@
 
 namespace Masny.TimeTracker.WebApi.Contracts.Requests
 {
+    /// <summary>
+    /// Project update operation request.
+    /// </summary>
     public class ProjectUpdateRequest
     {
         /// <summary>
