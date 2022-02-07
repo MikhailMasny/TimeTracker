@@ -1,0 +1,20 @@
+﻿@model UserLoginRequest
+
+@{
+    //ViewData["Title"] = Localizer["Title"];
+    ViewData["Title"] = "Login page";
+}
+
+<form class="form-account form-bg shadow-sm" method="post" asp-controller="Account" asp-action="Login" asp-antiforgery="true">
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <h1 class="h3 mb-3 font-weight-normal">Sign In</h1>
+
+    <input type="text" class="form-control" asp-for="Email" placeholder="Email" required autofocus />
+    <input type="password" class="form-control mb-3" asp-for="Password" placeholder="Password" required />
+
+    <p><span asp-validation-for="Email"></span></p>
+    <p><span asp-validation-for="Password"></span></p>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+</form>

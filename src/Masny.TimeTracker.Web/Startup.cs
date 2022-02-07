@@ -1,3 +1,6 @@
+﻿using Masny.TimeTracker.Web.Interfaces;
+using Masny.TimeTracker.Web.Service;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -7,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Masny.TimeTracker.Web
@@ -24,6 +28,20 @@ namespace Masny.TimeTracker.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddScoped(x =>
+            {
+                var apiUrl = new Uri("https://localhost:44327");
+
+                return new HttpClient() { BaseAddress = apiUrl };
+            });
+            services.AddScoped<IIdentityService, IdentityService>();
+            services.AddScoped<IRecordService, RecordService>();
+
+            // аутентификация с помощью куки
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => options.LoginPath = "/account/login");
+
+            services.AddAuthorization();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +62,7 @@ namespace Masny.TimeTracker.Web
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

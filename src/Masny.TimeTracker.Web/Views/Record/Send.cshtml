@@ -1,0 +1,22 @@
+﻿@model RecordCreateRequest
+
+@{
+    //ViewData["Title"] = Localizer["Title"];
+    ViewData["Title"] = "Record add";
+}
+
+<form class="form-account form-bg shadow-sm" method="post" asp-controller="Record" asp-action="Send">
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <h1 class="h3 mb-3 font-weight-normal">Add</h1>
+
+    <input type="number" class="form-control" asp-for="ProjectId" placeholder="ProjectId" required autofocus />
+    <input type="datetime-local" class="form-control mb-3" asp-for="Start" placeholder="Start" required />
+    <input type="datetime-local" class="form-control mb-3" asp-for="End" placeholder="End" required />
+
+    <p><span asp-validation-for="ProjectId"></span></p>
+    <p><span asp-validation-for="Start"></span></p>
+    <p><span asp-validation-for="End"></span></p>
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Send</button>
+</form>
