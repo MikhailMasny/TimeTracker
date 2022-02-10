@@ -1,13 +1,12 @@
 ﻿using Masny.TimeTracker.Core.Enums;
 using System;
-using System.Collections.Generic;
 
-namespace Masny.TimeTracker.Data.Models
+namespace Masny.TimeTracker.WebApp.Shared.Models
 {
     /// <summary>
-    /// Project.
+    /// Project item response.
     /// </summary>
-    public class Project
+    public class ProjectItemResponse
     {
         /// <summary>
         /// Identifier.
@@ -18,11 +17,6 @@ namespace Masny.TimeTracker.Data.Models
         /// User identifier.
         /// </summary>
         public string UserId { get; set; }
-
-        /// <summary>
-        /// Navigation property for user.
-        /// </summary>
-        public User User { get; set; }
 
         /// <summary>
         /// Name.
@@ -43,15 +37,5 @@ namespace Masny.TimeTracker.Data.Models
         /// Is favourite.
         /// </summary>
         public bool IsFavourite { get; set; }
-
-        /// <summary>
-        /// Navigation property for goal.
-        /// </summary>
-        public ICollection<Goal> Goals { get; set; }
-
-        /// <summary>
-        /// Navigation property for record.
-        /// </summary>
-        public ICollection<Record> Records { get; set; }
     }
 }

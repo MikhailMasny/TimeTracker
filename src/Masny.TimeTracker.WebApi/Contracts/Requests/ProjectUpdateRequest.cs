@@ -1,4 +1,5 @@
-﻿using Masny.TimeTracker.Data.Enums;
+﻿using Masny.TimeTracker.Core.Enums;
+using Masny.TimeTracker.Data.Enums;
 
 namespace Masny.TimeTracker.WebApi.Contracts.Requests
 {

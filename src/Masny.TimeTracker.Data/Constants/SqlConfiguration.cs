@@ -16,6 +16,11 @@
         public const string SqlSmallDateFormat = "smalldatetime";
 
         /// <summary>
+        /// Custom date time format.
+        /// </summary>
+        public const string SqlDateTimeFormat = "datetime";
+
+        /// <summary>
         /// Custom decimal format.
         /// </summary>
         public const string SqlDecimalFormat = "decimal(18,4)";

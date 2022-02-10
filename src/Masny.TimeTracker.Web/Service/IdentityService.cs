@@ -2,9 +2,7 @@
 using Masny.TimeTracker.WebApp.Shared.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
@@ -12,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace Masny.TimeTracker.Web.Service
 {
+    /// <inheritdoc cref="IIdentityService"/>
     public class IdentityService : IIdentityService
     {
-        private readonly string Baseurl = "https://localhost:44327/";
         private readonly HttpClient _httpClient;
 
         public IdentityService(HttpClient httpClient)
         {
-            _httpClient = httpClient;
+            _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         }
 
         public async Task<string> LoginAsync(object value)
@@ -45,9 +43,7 @@ namespace Masny.TimeTracker.Web.Service
             //    return View(EmpInfo);
             //}
 
-
             var request = new HttpRequestMessage(HttpMethod.Post, "api/user/login");
-            //request.BaseAddress = new Uri(Baseurl);
             request.Content = new StringContent(JsonSerializer.Serialize(value), Encoding.UTF8, "application/json");
 
             using var response = await _httpClient.SendAsync(request);

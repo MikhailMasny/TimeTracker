@@ -24,10 +24,10 @@ namespace Masny.TimeTracker.Data.Configurations
                 .UseIdentityColumn();
 
             builder.Property(record => record.Start)
-                .HasColumnType(SqlConfiguration.SqlSmallDateFormat);
+                .HasColumnType(SqlConfiguration.SqlDateTimeFormat);
 
             builder.Property(record => record.End)
-                .HasColumnType(SqlConfiguration.SqlSmallDateFormat);
+                .HasColumnType(SqlConfiguration.SqlDateTimeFormat);
 
             builder.Property(record => record.Type)
                 .HasConversion(new EnumToNumberConverter<RecordType, int>());

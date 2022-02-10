@@ -1,4 +1,4 @@
-﻿using Masny.TimeTracker.Data.Enums;
+﻿using Masny.TimeTracker.Core.Enums;
 using System;
 
 namespace Masny.TimeTracker.Logic.Models

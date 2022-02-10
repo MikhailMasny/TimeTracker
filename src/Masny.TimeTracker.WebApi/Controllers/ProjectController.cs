@@ -6,6 +6,7 @@ using Masny.TimeTracker.WebApi.Models;
 using Masny.TimeTracker.WebApp.Shared.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Masny.TimeTracker.WebApi.Controllers
@@ -28,7 +29,21 @@ namespace Masny.TimeTracker.WebApi.Controllers
             var user = (UserModel)HttpContext.Items["User"];
             var projects = await _projectManager.GetAllByUserIdAsync(user.Id);
 
-            return Ok(projects);
+            var projectModels = new List<ProjectItemResponse>();
+            foreach (var project in projects)
+            {
+                projectModels.Add(new ProjectItemResponse
+                {
+                    Id = project.Id,
+                    Name = project.Name,
+                    Type = project.Type,
+                    CreationTime = project.CreationTime,
+                    IsFavourite = project.IsFavourite,
+                    UserId = project.UserId,
+                });
+            }
+
+            return Ok(projectModels);
         }
 
         [HttpPost]

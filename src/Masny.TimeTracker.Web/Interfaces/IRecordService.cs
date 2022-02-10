@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Masny.TimeTracker.Web.Interfaces
 {
+    /// <summary>
+    /// Record service.
+    /// </summary>
     public interface IRecordService
     {
-        Task SendAsync(object value, string token);
+        /// <summary>
+        /// Add record.
+        /// </summary>
+        /// <param name="value">Object.</param>
+        /// <param name="token">Jwt token.</param>
+        Task AddAsync(object value, string token);
     }
 }

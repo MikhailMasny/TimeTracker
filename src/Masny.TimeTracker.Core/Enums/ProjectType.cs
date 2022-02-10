@@ -1,4 +1,4 @@
-﻿namespace Masny.TimeTracker.Data.Enums
+﻿namespace Masny.TimeTracker.Core.Enums
 {
     /// <summary>
     /// Project type.

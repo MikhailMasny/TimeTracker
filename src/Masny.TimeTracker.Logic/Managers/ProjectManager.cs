@@ -1,4 +1,5 @@
-﻿using Masny.TimeTracker.Data.Enums;
+﻿using Masny.TimeTracker.Core.Enums;
+using Masny.TimeTracker.Data.Enums;
 using Masny.TimeTracker.Data.Models;
 using Masny.TimeTracker.Logic.Exceptions;
 using Masny.TimeTracker.Logic.Interfaces;

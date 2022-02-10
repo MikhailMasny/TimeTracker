@@ -4,4 +4,8 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Masny.TimeTracker.Core\Masny.TimeTracker.Core.csproj" />
+  </ItemGroup>
+
 </Project>
