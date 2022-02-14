@@ -20,7 +20,7 @@ namespace Masny.TimeTracker.Web.Service
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         }
 
-        public async Task<string> LoginAsync(object value)
+        public async Task<(string token, IList<string> roles)> LoginAsync(object value)
         {
             //using (var client = new HttpClient())
             //{
@@ -56,7 +56,7 @@ namespace Masny.TimeTracker.Web.Service
             }
 
             var record = await response.Content.ReadFromJsonAsync<UserAuthModel>();
-            return record.Token;
+            return (record.Token, record.Roles);
         }
     }
 }

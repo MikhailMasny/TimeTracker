@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Masny.TimeTracker.Common\Masny.TimeTracker.Common.csproj" />
     <ProjectReference Include="..\Masny.TimeTracker.WebApp.Shared\Masny.TimeTracker.WebApp.Shared.csproj" />
   </ItemGroup>
 

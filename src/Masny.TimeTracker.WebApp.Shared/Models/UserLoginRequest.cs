@@ -10,7 +10,7 @@ namespace Masny.TimeTracker.WebApp.Shared.Models
         /// <summary>
         /// Email.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "TestMessage")]
         public string Email { get; set; }
 
         /// <summary>

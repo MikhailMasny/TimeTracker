@@ -52,8 +52,8 @@ namespace Masny.TimeTracker.WebApi.Controllers
 
             var user = await _userManager.FindByEmailAsync(model.Email);
             var token = _jwtService.GenerateJwtToken(user.Id, _appSettings.Secret);
-
-            var response = new AuthenticateResponse(user, token);
+            var userRoles = await _userManager.GetRolesAsync(user);
+            var response = new AuthenticateResponse(user, token, userRoles);
 
             return Ok(response);
         }
@@ -70,6 +70,7 @@ namespace Masny.TimeTracker.WebApi.Controllers
             };
 
             var result = await _userManager.CreateAsync(user, request.Password);
+            await _userManager.AddToRoleAsync(user, "User");
 
             if (!result.Succeeded)
             {
@@ -88,8 +89,8 @@ namespace Masny.TimeTracker.WebApi.Controllers
             }
 
             var token = _jwtService.GenerateJwtToken(user.Id, _appSettings.Secret);
-
-            var response = new AuthenticateResponse(user, token);
+            var userRoles = await _userManager.GetRolesAsync(user);
+            var response = new AuthenticateResponse(user, token, userRoles);
 
             return Ok(response);
         }
@@ -101,8 +102,8 @@ namespace Masny.TimeTracker.WebApi.Controllers
             var email = "test@test.test";
             var user = await _userManager.FindByEmailAsync(email);
             var token = _jwtService.GenerateJwtToken(user.Id, _appSettings.Secret);
-
-            var response = new AuthenticateResponse(user, token);
+            var userRoles = await _userManager.GetRolesAsync(user);
+            var response = new AuthenticateResponse(user, token, userRoles);
 
             return Ok(response);
         }

@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Masny.TimeTracker.BlazorWeb
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Masny.TimeTracker.WebApp.Shared", "src\Masny.TimeTracker.WebApp.Shared\Masny.TimeTracker.WebApp.Shared.csproj", "{E8FB067E-AB1D-4864-A6BA-CEC4FF1AED9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Masny.TimeTracker.Core", "src\Masny.TimeTracker.Core\Masny.TimeTracker.Core.csproj", "{3A84F5B0-9112-47DD-9AEA-516C06E6A384}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Masny.TimeTracker.Core", "src\Masny.TimeTracker.Core\Masny.TimeTracker.Core.csproj", "{3A84F5B0-9112-47DD-9AEA-516C06E6A384}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Masny.TimeTracker.Common", "src\Masny.TimeTracker.Common\Masny.TimeTracker.Common.csproj", "{50627EFB-0AAA-432D-8998-3A7C723DA0D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{3A84F5B0-9112-47DD-9AEA-516C06E6A384}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A84F5B0-9112-47DD-9AEA-516C06E6A384}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A84F5B0-9112-47DD-9AEA-516C06E6A384}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50627EFB-0AAA-432D-8998-3A7C723DA0D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50627EFB-0AAA-432D-8998-3A7C723DA0D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50627EFB-0AAA-432D-8998-3A7C723DA0D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50627EFB-0AAA-432D-8998-3A7C723DA0D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

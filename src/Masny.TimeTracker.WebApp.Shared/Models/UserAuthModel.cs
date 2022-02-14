@@ -1,4 +1,6 @@
-﻿namespace Masny.TimeTracker.WebApp.Shared.Models
+﻿using System.Collections.Generic;
+
+namespace Masny.TimeTracker.WebApp.Shared.Models
 {
     /// <summary>
     /// User auth model.
@@ -24,5 +26,10 @@
         /// Token.
         /// </summary>
         public string Token { get; set; }
+
+        /// <summary>
+        /// Roles.
+        /// </summary>
+        public IList<string> Roles { get; set; }
     }
 }

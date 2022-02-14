@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Masny.TimeTracker.Web.Interfaces
 {
@@ -12,6 +13,6 @@ namespace Masny.TimeTracker.Web.Interfaces
         /// </summary>
         /// <param name="value">Object.</param>
         /// <returns>Jwt token.</returns>
-        Task<string> LoginAsync(object value);
+        Task<(string token, IList<string> roles)> LoginAsync(object value);
     }
 }

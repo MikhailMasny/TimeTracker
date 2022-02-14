@@ -49,11 +49,17 @@ namespace Masny.TimeTracker.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                var token = await _identityService.LoginAsync(request);
+                var (token, roles) = await _identityService.LoginAsync(request);
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, token),
                 };
+
+                foreach (var role in roles)
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, role));
+                }
+
                 var claimsIdentity = new ClaimsIdentity(claims, "Cookies");
                 await HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme,
