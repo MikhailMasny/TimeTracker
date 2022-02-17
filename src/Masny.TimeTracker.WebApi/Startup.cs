@@ -8,6 +8,7 @@ using Masny.TimeTracker.WebApi.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,6 +43,13 @@ namespace Masny.TimeTracker.WebApi
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             // Default microsoft & other services
+            services.AddMemoryCache();
+            services.AddResponseCompression(options =>
+            {
+                options.EnableForHttps = true;
+                options.ExcludedMimeTypes = new[] { "application/json" };
+                options.Providers.Add<GzipCompressionProvider>();
+            });
             services.AddHttpContextAccessor();
             services.AddCors();
             services.AddControllers();
@@ -94,6 +102,7 @@ namespace Masny.TimeTracker.WebApi
             }
 
             app.UseMiddleware<ErrorHandlerMiddleware>();
+            app.UseResponseCompression();
 
             app.UseHsts();
             app.UseHttpsRedirection();
